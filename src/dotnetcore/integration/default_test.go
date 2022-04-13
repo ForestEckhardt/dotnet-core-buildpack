@@ -117,7 +117,7 @@ func testDefault(t *testing.T, context spec.G, it spec.S) {
 			})
 		})
 
-		context("when the app has Microsoft.AspNetCore.All version 3.0", func() {
+		context.Focus("when the app has Microsoft.AspNetCore.All version 3.0", func() {
 			it.Before(func() {
 				app = cutlass.New(filepath.Join(settings.FixturesPath, "source_apps", "source_3.0"))
 				app.Disk = "1G"
@@ -128,6 +128,7 @@ func testDefault(t *testing.T, context spec.G, it spec.S) {
 				Eventually(app.Stdout.String()).Should(ContainSubstring(fmt.Sprintf("Installing dotnet-runtime %s", latest31RuntimeVersion)))
 				Eventually(app.Stdout.String()).Should(ContainSubstring(fmt.Sprintf("Installing dotnet-aspnetcore %s", latest31ASPNetVersion)))
 				Expect(app.GetBody("/")).To(ContainSubstring("building Web apps with ASP.NET Core"))
+				fmt.Println(app.Stdout.String())
 			})
 		})
 

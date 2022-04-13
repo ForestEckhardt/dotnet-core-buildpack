@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.AspNetCore.App" Version="3.0.0"/>
   </ItemGroup>
 
+  <Target Name="__GetFrameworkVersion">
+    <Message Text="TargetFramework is '$(TargetFramework)'" Importance="High" />
+  </Target>
+
 </Project>

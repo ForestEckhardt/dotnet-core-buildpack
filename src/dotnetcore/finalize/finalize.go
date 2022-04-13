@@ -60,6 +60,30 @@ func Run(f *Finalizer) error {
 	}
 
 	if isSourceBased {
+		f.Log.Debug("PRE-Running command:")
+		mainProject, err := f.Project.MainPath()
+		if err != nil {
+			return err
+		}
+		env := f.shellEnvironment()
+		env = append(env, "PATH="+filepath.Join(filepath.Dir(mainProject), "node_modules", ".bin")+":"+os.Getenv("PATH"))
+		cmd := exec.Command("dotnet", "msbuild", "/t:__GetFrameworkVersion")
+		cmd.Dir = f.Stager.BuildDir()
+		cmd.Env = env
+		cmd.Stdout = indentWriter(os.Stdout)
+		cmd.Stderr = indentWriter(os.Stderr)
+
+		/*
+			this resulted in (along with printing stdout in tests):
+			2022-04-13T15:37:24.97+0000 [STG/0] OUT          TargetFramework is 'netcoreapp3.0'
+		*/
+		f.Log.Debug("Running command: %v", cmd)
+		if err := f.Command.Run(cmd); err != nil {
+			return err
+		}
+
+		f.Log.Debug("POST-Running command:")
+
 		if err := f.Project.SourceInstallDotnetRuntime(); err != nil {
 			f.Log.Error("Unable to install dotnet-runtime: %s", err.Error())
 			return err
