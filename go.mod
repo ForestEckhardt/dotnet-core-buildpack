@@ -3,11 +3,11 @@ module github.com/cloudfoundry/dotnet-core-buildpack
 go 1.19
 
 require (
-	github.com/Dynatrace/libbuildpack-dynatrace v1.4.2
+	github.com/Dynatrace/libbuildpack-dynatrace v1.5.1
 	github.com/Masterminds/semver v1.5.0
 	github.com/Sealights/libbuildpack-sealights v1.2.0
 	github.com/blang/semver v3.5.1+incompatible
-	github.com/cloudfoundry/libbuildpack v0.0.0-20221031220135-8f5ee8c4444a
+	github.com/cloudfoundry/libbuildpack v0.0.0-20221115221325-f9d1b0cc562f
 	github.com/go-ini/ini v1.67.0
 	github.com/golang/mock v1.6.0
 	github.com/gravityblast/go-jsmin v0.0.0-20141027113318-a32d741b3595
